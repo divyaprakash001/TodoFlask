@@ -14,6 +14,9 @@ def create_app():
   app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todo.db'
   app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+  app.config['SESSION_COOKIE_SAMESITE'] = 'None'
+  app.config['SESSION_COOKIE_SECURE'] = True
+
   # database object linked here
   # db.__init__(app)
   db.init_app(app)
