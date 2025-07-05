@@ -19,8 +19,6 @@ def view_tasks():
 @task_bp.route("/add",methods=['POST'])
 @login_required
 def add_task():
-  
-  
   if request.method == 'POST':
     title = request.form.get("title")
     if title:
@@ -28,7 +26,11 @@ def add_task():
       db.session.add(new_task)
       db.session.commit()
       flash("Task added successfully","success")
-    return redirect(url_for('tasks.view_tasks'))
+      return redirect(url_for('tasks.view_tasks'))
+    else:
+      flash("Task added failed","danger")
+      return redirect(url_for('tasks.view_tasks'))
+  
   
   return redirect(url_for('tasks.view_tasks'))
 
@@ -39,6 +41,9 @@ def toggle_status(task_id):
   
 
   task = Task.query.get(task_id)
+  if not task:
+    flash("Task not found", "danger")
+    return redirect(url_for('tasks.view_tasks'))
   if task:
     if task.status == 'Pending':
       task.status = 'Working'

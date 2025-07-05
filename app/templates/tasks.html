@@ -5,7 +5,7 @@
 {% block content %}
   <div class="task-box">
     <h2>Your Tasks</h2>
-    <form action="{{url_for('tasks.add_task')}}" method='post'>
+    <form action="{{url_for('tasks.add_task')}}" method='POST'>
   <div class="mb-3">
     <label for="title" class="form-label">Todo</label>
     <input type="text" class="form-control" name="title" id="title" required >
