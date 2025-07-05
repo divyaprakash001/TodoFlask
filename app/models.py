@@ -14,7 +14,7 @@ class User(UserMixin,db.Model):
 
 class Task(db.Model):
   id = db.Column(db.Integer, primary_key=True)
-  title = db.Column(db.String(150),nullable=False)
+  title = db.Column(db.String(550),nullable=False)
   status = db.Column(db.String(20), default="Pending")
 
   def __repr__(self):
