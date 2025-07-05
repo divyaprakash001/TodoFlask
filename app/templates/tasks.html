@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block content %}
+  <div class="task-box">
+    <h2>Your Tasks</h2>
+    <form action="{{url_for('tasks.add_task')}}" method='post'>
+  <div class="mb-3">
+    <label for="title" class="form-label">Todo</label>
+    <input type="text" class="form-control" name="title" id="title" required >
+  </div>
+  <button type="submit" class="btn btn-primary">Add</button>
+</form>
+    
+
+    {% if tasks %}
+      <form action="{{url_for('tasks.clear_tasks')}}" method="post" class="task-form">
+      <button type="submit" class="btn btn-sm btn-danger mt-2">Clear All Tasks</button>
+    </form>
+    <br>
+
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Sno</th>
+      <th scope="col">Title</th>
+      <th scope="col">Status</th>
+      <th colspan='2' scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for task in tasks %}
+    <tr>
+      <th scope="row">{{loop.index}}</th>
+      <td>{{task.title}}</td>
+      <td>{{task.status|lower}}</td>
+      <td>
+        <form action="{{url_for('tasks.toggle_status', task_id=task.id)}}" method='POST'>
+          <button type="submit" class="btn btn-sm btn-primary">Next</button>
+        </form>
+      </td>
+      <td>
+        <a href="{{url_for('tasks.delete_task',task_id=task.id)}}" class="btn btn-sm btn-danger">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+    {% else %}
+      <div class="alert alert-secondary mt-5" role="alert">
+      No Task yet. Add One Above
+      </div>
+    {% endif %}
+
+
+  </div>
+{% endblock %}
